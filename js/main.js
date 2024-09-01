@@ -122,7 +122,7 @@ gsap.fromTo('#split2 .char',
       delay: 0.2,
       scrollTrigger: {
         trigger: '.estrellas2', // Inicia la animación cuando .estrellas2 entra en la vista
-        start: 'top -600%', 
+        start: 'top -550%', 
         end: 'bottom -800%',
         toggleActions: 'play reverse play reverse', // Activa la animación en ambas direcciones
       }
@@ -140,7 +140,7 @@ gsap.fromTo('#split3 .char',
       delay: 0.2,
       scrollTrigger: {
         trigger: '.estrellas3', // Inicia la animación cuando .estrellas3 entra en la vista
-        start: 'top -900%', 
+        start: 'top -800%', 
         end: 'bottom -1200%',
         toggleActions: 'play reverse play reverse', // Activa la animación en ambas direcciones
       }
@@ -173,7 +173,7 @@ gsap.fromTo('.estructuras',
       duration: 4,
       scrollTrigger: {
         trigger: '.estrellas1', // Inicia la animación cuando .video-planeta entra en la vista
-        start: 'top -600%', 
+        start: 'top -550%', 
         end: 'bottom -800%',
         toggleActions: 'play reverse play reverse', // Activa la animación en ambas direcciones
       }
@@ -188,7 +188,7 @@ gsap.fromTo('.api',
       duration: 4,
       scrollTrigger: {
         trigger: '.estrellas1', // Inicia la animación cuando .video-planeta entra en la vista
-        start: 'top -900%', 
+        start: 'top -800%', 
         end: 'bottom -1200%',
         toggleActions: 'play reverse play reverse', // Activa la animación en ambas direcciones
       }
