@@ -10,6 +10,7 @@ export function animacionWindowRight() {
           autoAlpha: 1, 
           y: 0, 
           duration: 1,
+          immediateRender: true,
           scrollTrigger: {
             trigger: '.window_right',
             start: 'top 100%',  
@@ -28,6 +29,7 @@ export function animacionWindowLeft() {
           autoAlpha: 1, 
           x: 0,  
           duration: 1,
+          immediateRender: true,
           scrollTrigger: {
             trigger: '.window_left',
             start: 'top 100%',  
@@ -46,6 +48,7 @@ export function animacionVideoLeft() {
           autoAlpha: 1, 
           x: 0,  
           duration: 1,
+          immediateRender: true,
           scrollTrigger: {
             trigger: '.video-planeta',
             start: 'top -70%', 
@@ -64,6 +67,7 @@ export function animacionVideoRight() {
           autoAlpha: 1, 
           y: 0,  
           duration: 4,
+          immediateRender: false,
           scrollTrigger: {
             trigger: '.video-planeta', 
             start: 'top -70%', 
@@ -138,6 +142,7 @@ export function animacionDispersion() {
           autoAlpha: 1, 
           y: -1000,  
           duration: 7,
+          immediateRender: false,
           scrollTrigger: {
             trigger: '.estrellas1',
             start: 'top -900%', 

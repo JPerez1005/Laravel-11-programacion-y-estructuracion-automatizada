@@ -45,6 +45,7 @@
 .black_star{
     width: 28px;
     height: 28px;
+    will-change: opacity, rotate;
     animation: rotate 6s linear infinite, blink 6s ease-in-out infinite;
 }
 

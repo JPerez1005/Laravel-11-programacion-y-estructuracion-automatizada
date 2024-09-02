@@ -13,7 +13,7 @@ import {
     animacionApi ,
     animacionDispersion
 } from './ScrollAnimaciones.js';
-import { 
+import {
     animateText1,
     animateText2,
     animateText3
