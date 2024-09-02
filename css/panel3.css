@@ -1,0 +1,5 @@
+.estrellas1{
+    z-index: 2;
+    background-image: url(../assets/img/estrellas1.jpg);
+    overflow: hidden;
+}

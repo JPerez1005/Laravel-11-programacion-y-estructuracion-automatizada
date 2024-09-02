@@ -1,0 +1,6 @@
+.estrellas2{
+    z-index: 3;
+    animation: zoomInOut 10s infinite alternate;
+    background-image: url(../assets/img/estrellas6.jpg);
+    overflow: hidden;
+}

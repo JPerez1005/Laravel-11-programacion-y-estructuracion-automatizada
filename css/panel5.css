@@ -1,0 +1,12 @@
+.estrellas3{
+    z-index: 3;
+    animation: zoomInOut 10s infinite alternate;
+    background-image: url(../assets/img/estrellas5.jpg);
+    overflow: hidden;
+}
+
+.dispersion{
+    overflow: hidden;
+    position: absolute;
+    left: -20%;
+}
