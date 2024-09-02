@@ -1,4 +1,5 @@
 gsap.registerPlugin(ScrollTrigger);
+const d=document;
 
 import tl from './estructura.js';
 // Importar las animaciones de paneles y botones desde ScrollAnimaciones.js
@@ -19,8 +20,10 @@ import {
 } from './SplitTextAnimation.js';
 import { initMouseMoveParallax } from './MouseMoveAnimation.js';
 
+
+
 // Llamar las funciones para iniciar las animaciones cuando la página se carga
-document.addEventListener('DOMContentLoaded', () => {
+d.addEventListener('DOMContentLoaded', () => {
     // Ejecutar las animaciones de paneles
     animacionWindowRight();
     animacionWindowLeft();
