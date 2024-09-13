@@ -31,10 +31,7 @@
     gap: 25px;
     transform: translateY(25%);
     padding-top: 8%;
-}
-
-.container:nth-child(2){
-    color: #000;
+    user-select: none;
 }
 
 .container button{
@@ -48,16 +45,6 @@
     cursor: pointer;
     color: white;
     font-weight: 700;
-}
-
-#button2{
-    border: 2px #222 solid;
-    color: #222;
-}
-
-#button2:hover{
-    background-color: #222222;
-    color: aliceblue;
 }
 
 .container button:hover{

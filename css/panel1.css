@@ -1,6 +1,7 @@
 .window{
     z-index: 4;
     background-image: url(../assets/png/window.png);
+    user-select: none;
 }
 
 .window_text{
