@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Api</title>
+
+	<link rel="stylesheet" href="../css/base-views.css">
+	<script src="../js/base-views.js" defer type="module"></script>
+	<script src="../js/api.js" type="module"></script>
+</head>
+<body>
+
+	<div class="container">
+		<section class="gallery">
+
+			<div class="frame">
+				<div class="frame__content">
+					<h2>Api Rest</h2>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<video class="frame-media" src="../assets/media/particulas.mp4" autoplay loop muted></video>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Instalar la api</h3>
+					<pre><code>
+php artisan install:api
+					</code></pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Migraciones</h3>
+					<p>
+						para poder estar en las migraciones el proyecto ya deberia de estar hecho, en este
+						caso podremos ver que las migraciones pueden ser como tablas, tendremos que crear
+						estructuradamente las tablas para poder iniciar un buen proyecto.
+					</p>
+					<h4>A continuacion el codigo de creacion de migraciones</h4>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content text-left">
+					<h1>Crear tablas</h1>
+					<pre><code class="language-javascript">
+php artisan make:migration createNombreTable
+					</code></pre>
+				</div>
+				<div class="frame__content text-right">
+					<h1>Realizamos migraciones</h1>
+					<pre><code class="language-javascript">
+php artisan migrate
+					</code></pre>
+					<br>
+					<h1>Actualizamos las migraciones</h1>
+					<pre><code class="language-javascript">
+php artisan migrate:refresh
+					</code></pre>
+					<br>
+					<h1>Eliminamos las migraciones</h1>
+					<pre><code class="language-javascript">
+php artisan migrate:rollback
+					</code></pre>
+					<br>
+					<p>
+						Aquí se realizan los cambios en las migraciones
+					</p>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content">
+					<h3>Tipos de campos</h3>
+					<br>
+					<pre><code class="language-javascript">
+$table->id();
+$table->string('nombre',20);
+$table->integer('stock');
+$table->enum('rol',['admin','regular'])->default('regular');
+$table->date('fecha');
+$table->boolean('estado')->default(false);
+// Para las tablas foraneas
+$table->foreignId('autor_id')->constrained('autor')->onDelete('cascade');
+// Es util para fechas de cambios en la db
+$table->timestamps();
+					</code></pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content text-right ">
+					<h3>Crear Modelos</h3>
+					<p>
+						El modelo se comunica con la migración y con el multicontrolador, que lo veremos
+						mas adelante, hay dos tipos de modelos con distintas relaciones.
+					</p>
+					<h4>A continuación el codigo</h4>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content text-left">
+					<h2>Tabla Padre</h2>
+					<pre><code class="language-javascript">
+class Autor extends Model
+{
+	use HasFactory;
+	public $timestamps = false;
+	
+	protected $fillable=['nombre'];
+	
+	protected $table = 'autor';
+
+	function libros(){
+		return $this->hasMany(Libro::class);
+	}
+
+	public static function validationRules()
+    {
+        return [
+            'nombre'=>'required|min:5|max:500',
+        ];
+    }
+}
+					</code></pre>
+					<br>
+					<p>
+						En este modelo se puede ver claramente la función de libros, que realmente se
+						refiere a la tabla hija llamada libros, en este caso mantienen una relacion de 
+						uno a muchos.
+					</p>
+				</div>
+				<div class="frame__content text-right">
+					<h2>Tabla Hijo</h2>
+					<pre><code class="language-javascript">
+class Libro extends Model
+{
+	use HasFactory;
+
+	protected $fillable=['titulo','stock','autor_id'];
+
+	public function autor(){
+		return $this->belongsTo(Autor::class,'autor_id');
+	}
+
+	public static function validationRules()
+    {
+        return [
+            'titulo'=>'required|min:5|max:500',
+			//aquí se pueden agregar mas condiciones
+        ];
+    }
+}
+					</code></pre>
+					<br>
+					<p>
+						En este modelo se puede ver claramente la función de autor, que realmente se
+						refiere a la tabla padre llamada autor.
+					</p>
+				</div>
+
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content text-left">
+					<h2>Tipos de condiciones</h2>
+					<pre><code class="language-javascript">
+'nombre'=>'required|min:5|max:500',
+// stock mayor a cero
+'stock'=>'required|integer|gt:0',
+// stock menor a cero
+'stock'=>'required|integer|lt:0',
+// fecha antes de la fecha de devolucion
+'fecha_de_prestamo'=>'required|date|before:fecha_de_devolucion',
+// fecha despues de la fecha de prestamo
+'fecha_de_devolucion'=>'required|date|after:fecha_de_prestamo',
+// la foranea
+'autor_id'=>'required|integer',
+					</code></pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Creación del multicontrolador</h3>
+					<p>
+						El controlador es el responsable de las acciones que puede llegar a tomar un modelo, para
+						después pasar los datos transformados a la migración o la tabla de la base de datos.
+					</p>
+					<h4>a continuación la estrcutura del multicontrolador</h4>
+				</div>
+			</div>
+
+			<div class="frame"></div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content text-left">
+					<h3>configuración de modelos</h3>
+					<p>Creamos un documento en la carpeta config llamado models.php</p>
+					<pre><code>
+<?php
+$models = [
+    'tabla_dos' => \App\Models\Tabla_dos::class,
+    // Agrega más modelos según sea necesario
+];
+
+$validModels = [];
+$invalidModels = [];
+
+foreach ($models as $type => $model) {
+    if (class_exists($model)) {
+        $validModels[$type] = $model;
+    } else {
+        $invalidModels[$type] = $model;
+    }
+}
+
+return [
+    'valid' => $validModels,
+    'invalid' => $invalidModels,
+];
+					</code></pre>
+				</div>
+				<div class="frame__content text-right">
+					<h3>Uso del request</h3>
+					<pre><code>
+use Illuminate\Http\Request;
+					</code></pre>
+					<br>
+					<p>A partir de aquí colocamos el codigo necesario para sincronizar los modelos existentes</p>
+					<pre><code>
+protected $models;
+protected $invalidModels;
+
+public function __construct()
+{
+	$modelsConfig = config('models');
+	$this->models = $modelsConfig['valid'];
+	$this->invalidModels = $modelsConfig['invalid'];
+}
+
+protected function getModel($type)
+{
+	return isset($this->models[$type])
+		? new $this->models[$type]
+		: abort(404, "Modelo no encontrado, hay un error desde la solicitud.");
+}
+					</code></pre>
+					<br>
+					<p>ese codigo debe de estar dentro de la clase del multicontrolador</p>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Funciones basicas</h3>
+					<br>
+					<p>A continuacin las funciones basicas del multicontrolador</p>
+				</div>
+			</div>
+			<div class="frame frame_bg">
+				<div class="frame__content text-left">
+					<pre><code>
+				public function all($type)
+				{
+					$model = $this->getModel($type);
+					return response()->json($model::all());
+				}
+
+				public function pagination(Request $request, $type)
+				{
+					$model = $this->getModel($type);
+					$query = $model::query();
+
+					if ($request->has('search')) {
+						$search = $request->input('search');
+						$query->where('nombre', 'like', "%{$search}%");
+					}
+
+					return response()->json($query->paginate(3));
+				}
+
+				public function store(Request $request, $type)
+				{
+					$model = $this->getModel($type);
+					$validatedData = $request->validate($model::validationRules());
+					$instance = $model::create($validatedData);
+					return response()->json(['message' => ucfirst($type) .
+					' creado con éxito', 'data' => $instance], 201);
+				}
+					</code></pre>
+				</div>
+				<div class="frame__content text-right" style="transform: translateX(-30%);">
+					<pre><code>
+public function show($type, $id)
+{
+	$model = $this->getModel($type);
+	$instance = $model::findOrFail($id);
+	return response()->json($instance);
+}
+
+public function update(Request $request, $type, $id)
+{
+	$model = $this->getModel($type);
+	$instance = $model::findOrFail($id);
+	$validatedData = $request->validate($model::validationRules());
+	$instance->update($validatedData);
+	return response()->json($instance);
+}
+
+public function destroy($type, $id)
+{
+	$model = $this->getModel($type);
+	$instance = $model::findOrFail($id);
+	$instance->delete();
+	return response()->json(['message' => ucfirst($type) .
+	' eliminado con éxito']);
+}
+					</code></pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h1>Acceso a rutas</h1>
+					<p>Nos dirigimos al archivo api.php de la carpeta routes</p>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h1>Configuración de api.php</h1>
+					<pre>
+						<code>
+Route::prefix('{type}')->group(function () {
+	Route::get('/all', [MultiModelController::class, 'all']);
+	Route::get('/paginate', [MultiModelController::class, 'index']);
+	Route::post('/', [MultiModelController::class, 'store']);
+	Route::get('/{id}', [MultiModelController::class, 'show']);
+	Route::put('/{id}', [MultiModelController::class, 'update']);
+	Route::delete('/{id}', [MultiModelController::class, 'destroy']);
+});
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="frame">
+				<div class="frame__content">
+					<h2>Felicidades</h2>
+					<p>Hemos terminado con la fase de Api rest</p>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<video class="frame-media" src="../assets/media/particulas.mp4" autoplay loop muted></video>
+				</div>
+			</div>
+
+			<div class="frame">
+				<div class="frame__content">©Julián Pérez Bueno</div>
+			</div>
+
+			
+
+		</section>
+	</div>
+
+	<img class="soundbutton paused" src="../assets/img/sound.gif" alt="Alt">
+	<audio class="audio" src="../assets/media/ambient.mp3" loop></audio>
+
+</body>
+</html>
