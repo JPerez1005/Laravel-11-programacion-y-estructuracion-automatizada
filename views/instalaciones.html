@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Instalaciones</title>
+
+	<link rel="stylesheet" href="../css/base-views.css">
+	<script src="../js/base-views.js" defer type="module"></script>
+	<script src="../js/instalaciones.js" type="module"></script>
+</head>
+<body>
+
+	<div class="container">
+		<section class="gallery">
+
+			<div class="frame">
+				<div class="frame__content">
+					<h2>Instalaciones</h2>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<video class="frame-media" src="../assets/media/particulas.mp4" autoplay loop muted></video>
+				</div>
+			</div>
+
+			<div class="frame">
+				<div class="frame__content text-left">
+					<h3>Creamos el proyecto</h3>
+					<p>Podemos usar cualquier herramienta, preferiblemente laragon, pero eso no significa
+						que no hay otros medios para crear proyectos.</p>
+					<h4>A continuacion el codigo</h4>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content">
+					<pre><code class="language-javascript">
+composer global remove laravel/installer
+composer global require laravel/installer
+laravel new nombre-del-proyecto
+					</code></pre>
+				</div>
+			</div>
+
+			<div class="frame">
+				<div class="frame__content text-right frame_bg">
+					<h3>Instalación vue3</h3>
+					<p>Vue3 es una herramienta muy utilizada para establacerla como herramienta
+						forntend del proyecto, también se encuentra la instalacion del vue router.</p>
+					<h4>A continuacion el codigo</h4>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content">
+					<pre><code class="language-javascript">
+npm install vue
+npm install vue-loader
+npm install @vitejs/plugin-vue
+npm install vue-router@4
+					</code></pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Configuración Vue3</h3>
+					<p>Vue3 tiene la siguiente configuracion en el archivo:</p>
+					<h4>vite.config.js</h4>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content text-left">
+					<h2>Importar codigo</h2>
+					<pre><code class="language-javascript">
+import vue from '@vitejs/plugin-vue';
+					</code></pre>
+				</div>
+				<div class="frame__content text-right">
+					<h2>Importar configuración</h2>
+					<pre><code class="language-javascript">
+export default defineConfig({plugins: [vue(),]});
+					</code></pre>
+					<br>
+					<pre><code class="language-javascript">
+vue(),
+					</code></pre>
+					<br>
+					<p>
+						Tener cuidado debido a que aquí solo se le agrega una linea de codigo
+						al archivo, se recomienda solo copiar el segundo codigo.
+					</p>
+				</div>
+
+			</div>
+
+			<div class="frame">
+				<div class="frame__content text-left">
+					<h1>Seguir la siguiente estructura</h1>
+					<pre class="sin">
+resources
+│
+├── css
+│   ├── app.css
+│   └── vue.css
+│
+├── js
+│   ├── app.js
+│   ├── bootstrap.js
+│   └── vue
+│       ├── App.vue
+│       ├── main.js
+│       ├── routes.js
+│       └── components
+│           └── EjemploComponent.vue
+					</pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t1.jpg)"></div>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h1>codigo de la estructura</h1>
+					<pre>
+						<code>
+cd resources
+touch css/vue.css
+mkdir js/vue
+touch js/vue/App.vue js/vue/main.js js/vue/router.js
+mkdir js/vue/components
+						</code>
+					</pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h1>Instalar Taildwind</h1>
+					<p>No es necesario, pero de todos modos aquí está la instalación</p>
+				</div>
+			</div>
+
+			<div class="frame">
+				<div class="frame__content text-right">
+					<h1>Instalacion</h1>
+					<pre>
+						<code>
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm install @headlessui/vue @heroicons/vue
+						</code>
+					</pre>
+					<br>
+					<p>Así se instala tailwind junto con sus dependencias y se expone.</p>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t2.jpg)"></div>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				
+				<div class="frame__content text-left">
+					<h2>Configuraciones</h2>
+					<p>En el archivo tailwind.config.js agregamos en el array de content</p>
+					<pre><code class="language-javascript">
+export default{
+	content:[
+		"./resources/js/**/*.{vue,js,ts,jxs,tsx}",
+	]
+}
+					</code></pre>
+				</div>
+				<div class="frame__content text-right">
+					<h3>importacion en css</h3>
+					<p>creamos un archivo css de vue con lo siguiente</p>
+					<pre><code class="language-javascript">
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+					</code></pre>
+					<br>
+					<p>
+						y lo importamos en el main.js por lo general es de la siguiente manera import
+						 '../../css/vue.css';
+					</p>
+				</div>
+
+			</div>
+
+			<div class="frame">
+				<div class="frame__content">
+					<h2>Felicidades</h2>
+					<p>Hemos terminado con la fase de instalaciones</p>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<video class="frame-media" src="../assets/media/particulas.mp4" autoplay loop muted></video>
+				</div>
+			</div>
+
+			<div class="frame">
+				<div class="frame__content">©Julián Pérez Bueno</div>
+			</div>
+
+			
+
+		</section>
+	</div>
+
+	<img class="soundbutton paused" src="../assets/img/sound.gif" alt="Alt">
+	<audio class="audio" src="../assets/media/ambient.mp3" loop></audio>
+
+</body>
+</html>
