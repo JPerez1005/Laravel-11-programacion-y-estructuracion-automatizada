@@ -7,6 +7,7 @@
 	<title>Estructuras</title>
 
 	<link rel="stylesheet" href="../css/base-views.css">
+	<link rel="stylesheet" href="../css/estructuras.css">
 	<script src="../js/base-views.js" defer type="module"></script>
 	<script src="../js/estructuras.js" type="module"></script>
 </head>
@@ -140,6 +141,7 @@ npm install pinia-plugin-persistedstate
 			<div class="frame frame_bg">
 				<div class="frame__content">
 					<h2>Configuración Principal</h2>
+                    <h4>dentro del archivo main.js</h4>
 					<pre><code class="language-javascript">
 import { createApp } from "vue";
 import App  from './App.vue';
@@ -190,6 +192,7 @@ app.mount("#app");
                     <h4>js/vue/jsComponents</h4>
 				</div>
 			</div>
+
 			<div class="frame frame_bg">
 				<div class="frame__content text-left">
                     <h4>Modelo de lista</h4>
@@ -205,26 +208,119 @@ app.mount("#app");
 
 			<div class="frame frame_bg">
 				<div class="frame__content">
-					<h1>Acceso a rutas</h1>
-					<p>Nos dirigimos al archivo api.php de la carpeta routes</p>
+					<h1>2do main.js</h1>
+					<p>creamos otro main.js en la carpeta de jsComponents, con la función de
+                        unir los dos modelos en un solo archivo y no confundirse en la sincronización
+                        de datos en el frontend
+                    </p>
+                    <br>
+                    <a href="../docs/main.js" download="main.js">descargar Main.js</a>
+				</div>
+			</div>
+
+            <div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Como Enlistar</h3>
+					<br>
+					<p>
+                        Considerando que enlistar datos es muy fundamental, para saber
+                        si los datos se sincronizan perfectamente con el backend    
+                    </p>
 				</div>
 			</div>
 
 			<div class="frame frame_bg">
+				<div class="frame__content text-left">
+					<h3>Estructura html</h3>
+                    <pre><code>
+&lt;tr v-for=&quot;item in data&quot; :key=&quot;item.id&quot;&gt;
+    &lt;td&gt;{{ item.titulo }}&lt;/td&gt;
+    &lt;td&gt;{{ item.stock }}&lt;/td&gt;
+&lt;/tr&gt;
+                    </code></pre>
+				</div>
+                <div class="frame__content text-right">
+					<h3>Estructura Javascript</h3>
+                    <pre><code>
+import { useListModel } from '../jsComponents/main.js';
+
+export default {
+  setup() {
+    const { data,
+        isLoading,
+        pagination,
+        fetchPagina,
+        eliminar,
+        search,
+        buscar } = useListModel('tabla_dos');
+    return {
+      data,
+      isLoading,
+      pagination,
+      fetchPagina,
+      eliminar,
+      search,
+      buscar,
+    };
+  },
+};
+                    </code></pre>
+				</div>
+			</div>
+
+            <div class="frame frame_bg">
 				<div class="frame__content">
-					<h1>Configuración de api.php</h1>
-					<pre>
-						<code>
-Route::prefix('{type}')->group(function () {
-	Route::get('/all', [MultiModelController::class, 'all']);
-	Route::get('/paginate', [MultiModelController::class, 'index']);
-	Route::post('/', [MultiModelController::class, 'store']);
-	Route::get('/{id}', [MultiModelController::class, 'show']);
-	Route::put('/{id}', [MultiModelController::class, 'update']);
-	Route::delete('/{id}', [MultiModelController::class, 'destroy']);
-});
-						</code>
-					</pre>
+					<h3>Como Registrar</h3>
+					<br>
+					<p>
+                        Si se siguieron todos los pasos correctamente el registro no debería dar ningún
+                        problema, pero por si acaso hubo algún problema por favor revisar todos los pasos
+                        de nuevo o informar al desarrollador.  
+                    </p>
+				</div>
+			</div>
+
+            <div class="frame"></div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content text-left">
+					<h3>Estructura html</h3>
+                    <pre><code class="language-html">
+&lt;form @submit.prevent=&quot;enviar&quot;&gt;
+    &lt;div&gt;
+        &lt;label for=&quot;titulo&quot;&gt;Título:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;titulo&quot; v-model=&quot;form.titulo&quot; required /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label for=&quot;stock&quot;&gt;Stock:&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;stock&quot; v-model=&quot;form.stock&quot; required /&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;submit&quot;&gt;{{ editMode ? 'Actualizar' : 'Registrar' }}&lt;/button&gt;
+    &lt;button type=&quot;button&quot; @click=&quot;cancelar&quot;&gt;Cancelar&lt;/button&gt;
+&lt;/form&gt;
+                    </code></pre>
+				</div>
+                <div class="frame__content text-right">
+					<h3>Estructura Javascript</h3>
+                    <pre><code>
+import { useFormModel } from '../jsComponents/main.js';
+
+export default {
+    setup() {
+    const { form, enviar, cancelar, editMode } = useFormModel('tabla_dos', {
+        titulo: '',
+        stock: 0,
+    });
+
+    return {
+        form,
+        enviar,
+        cancelar,
+        editMode,
+    };
+    },
+};
+                    </code></pre>
 				</div>
 			</div>
 

@@ -209,127 +209,24 @@ class Libro extends Model
 			<div class="frame frame_bg">
 				<div class="frame__content text-left">
 					<h3>configuración de modelos</h3>
-					<p>Creamos un documento en la carpeta config llamado models.php</p>
-					<pre><code>
-<?php
-$models = [
-    'tabla_dos' => \App\Models\Tabla_dos::class,
-    // Agrega más modelos según sea necesario
-];
-
-$validModels = [];
-$invalidModels = [];
-
-foreach ($models as $type => $model) {
-    if (class_exists($model)) {
-        $validModels[$type] = $model;
-    } else {
-        $invalidModels[$type] = $model;
-    }
-}
-
-return [
-    'valid' => $validModels,
-    'invalid' => $invalidModels,
-];
-					</code></pre>
+					<p>Guardamos un documento en la carpeta config principal y lo llamamos models.php</p>
+					<br>
+					<a href="../docs/models.php" download="models.php">Descargar</a>
+					<br>
+					<h1>Por favor no olvidar configurarlo</h1>
 				</div>
 				<div class="frame__content text-right">
-					<h3>Uso del request</h3>
-					<pre><code>
-use Illuminate\Http\Request;
-					</code></pre>
+					<h3>Archivo multicontrolador</h3>
 					<br>
-					<p>A partir de aquí colocamos el codigo necesario para sincronizar los modelos existentes</p>
-					<pre><code>
-protected $models;
-protected $invalidModels;
-
-public function __construct()
-{
-	$modelsConfig = config('models');
-	$this->models = $modelsConfig['valid'];
-	$this->invalidModels = $modelsConfig['invalid'];
-}
-
-protected function getModel($type)
-{
-	return isset($this->models[$type])
-		? new $this->models[$type]
-		: abort(404, "Modelo no encontrado, hay un error desde la solicitud.");
-}
-					</code></pre>
+					<p>
+						El multicontrolador se comunica con el modelo y las rutas del api
+					</p>
 					<br>
-					<p>ese codigo debe de estar dentro de la clase del multicontrolador</p>
-				</div>
-			</div>
-
-			<div class="frame frame_bg">
-				<div class="frame__content">
-					<h3>Funciones basicas</h3>
+					<a href="../docs/MultiModelController.php" download="MultiModelController.php">
+						Descargar
+					</a>
 					<br>
-					<p>A continuacin las funciones basicas del multicontrolador</p>
-				</div>
-			</div>
-			<div class="frame frame_bg">
-				<div class="frame__content text-left">
-					<pre><code>
-				public function all($type)
-				{
-					$model = $this->getModel($type);
-					return response()->json($model::all());
-				}
-
-				public function pagination(Request $request, $type)
-				{
-					$model = $this->getModel($type);
-					$query = $model::query();
-
-					if ($request->has('search')) {
-						$search = $request->input('search');
-						$query->where('nombre', 'like', "%{$search}%");
-					}
-
-					return response()->json($query->paginate(3));
-				}
-
-				public function store(Request $request, $type)
-				{
-					$model = $this->getModel($type);
-					$validatedData = $request->validate($model::validationRules());
-					$instance = $model::create($validatedData);
-					return response()->json(['message' => ucfirst($type) .
-					' creado con éxito', 'data' => $instance], 201);
-				}
-					</code></pre>
-				</div>
-				<div class="frame__content text-right" style="transform: translateX(-30%);">
-					<pre><code>
-public function show($type, $id)
-{
-	$model = $this->getModel($type);
-	$instance = $model::findOrFail($id);
-	return response()->json($instance);
-}
-
-public function update(Request $request, $type, $id)
-{
-	$model = $this->getModel($type);
-	$instance = $model::findOrFail($id);
-	$validatedData = $request->validate($model::validationRules());
-	$instance->update($validatedData);
-	return response()->json($instance);
-}
-
-public function destroy($type, $id)
-{
-	$model = $this->getModel($type);
-	$instance = $model::findOrFail($id);
-	$instance->delete();
-	return response()->json(['message' => ucfirst($type) .
-	' eliminado con éxito']);
-}
-					</code></pre>
+					<h1>se recomienda no modificar el archivo</h1>
 				</div>
 			</div>
 
@@ -343,6 +240,10 @@ public function destroy($type, $id)
 			<div class="frame frame_bg">
 				<div class="frame__content">
 					<h1>Configuración de api.php</h1>
+					<br>
+					<p>No es necesario modificar el archivo, solamente tiene que colocar
+						el codigo en ese archivo.</p>
+					<br>
 					<pre>
 						<code>
 Route::prefix('{type}')->group(function () {
