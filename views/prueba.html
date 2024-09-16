@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="frame frame_bg">
+        <div class="frame__content">
+            <pre><code class="language-javascript" id="codeBlock">
+    composer global remove laravel/installer
+    composer global require laravel/installer
+    laravel new nombre-del-proyecto
+            </code></pre>
+        </div>
+        <button onclick="askProjectName()">Ingresar nombre del proyecto</button>
+    </div>
+    
+    <script>
+    function askProjectName() {
+        const projectName = prompt("Ingrese el nombre del proyecto:");
+        if (projectName) {
+            // Reemplaza "nombre-del-proyecto" en el código con el nombre ingresado por el usuario
+            const codeBlock = document.getElementById('codeBlock');
+            codeBlock.textContent = `
+    composer global remove laravel/installer
+    composer global require laravel/installer
+    laravel new ${projectName}
+            `;
+        }
+    }
+    </script>
+    
+</body>
+</html>

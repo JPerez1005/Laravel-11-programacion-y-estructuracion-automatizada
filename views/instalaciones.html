@@ -7,8 +7,10 @@
 	<title>Instalaciones</title>
 
 	<link rel="stylesheet" href="../css/base-views.css">
+	<link rel="stylesheet" href="../css/instalaciones.css">
 	<script src="../js/base-views.js" defer type="module"></script>
 	<script src="../js/instalaciones.js" type="module"></script>
+
 </head>
 <body>
 
@@ -32,6 +34,8 @@
 					<h3>Creamos el proyecto</h3>
 					<p>Podemos usar cualquier herramienta, preferiblemente laragon, pero eso no significa
 						que no hay otros medios para crear proyectos.</p>
+					<br>
+					<button id="projectButton">Nombre del proyecto</button>
 					<h4>A continuacion el codigo</h4>
 				</div>
 			</div>
@@ -39,7 +43,7 @@
 			<div class="frame frame_bg">
 				
 				<div class="frame__content">
-					<pre><code class="language-javascript">
+					<pre><code class="language-javascript" id="codeBlock">
 composer global remove laravel/installer
 composer global require laravel/installer
 laravel new nombre-del-proyecto
@@ -61,11 +65,13 @@ laravel new nombre-del-proyecto
 			<div class="frame frame_bg">
 				
 				<div class="frame__content">
-					<pre><code class="language-javascript">
+					<pre><code class="language-javascript" id="codeBlock2">
+cd nombre-del-proyecto
 npm install vue
 npm install vue-loader
 npm install @vitejs/plugin-vue
 npm install vue-router@4
+code .
 					</code></pre>
 				</div>
 			</div>
@@ -134,17 +140,30 @@ resources
 			</div>
 
 			<div class="frame frame_bg">
-				<div class="frame__content">
-					<h1>codigo de la estructura</h1>
+				<div class="frame__content text-left">
+					<h1>Comandos para la estructura</h1>
 					<pre>
 						<code>
 cd resources
-touch css/vue.css
-mkdir js/vue
-touch js/vue/App.vue js/vue/main.js js/vue/router.js
-mkdir js/vue/components
+mkdir css
+echo. > css\vue.css
+mkdir js
+mkdir js\vue
+echo. > js\vue\App.vue
+echo. > js\vue\main.js
+echo. > js\vue\router.js
+mkdir js\vue\components
+cd ..
 						</code>
 					</pre>
+				</div>
+				<div class="frame__content text-right">
+					<h2>Comandos para la BD</h2>
+					<pre><code id="codeBlock3">
+mysql -u root -p
+CREATE DATABASE nombre_de_la_base_de_datos;
+exit
+					</code></pre>
 				</div>
 			</div>
 

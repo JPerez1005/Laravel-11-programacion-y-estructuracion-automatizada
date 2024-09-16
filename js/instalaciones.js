@@ -9,6 +9,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     hablar("Bienvenido de nuevo creador Julián Perez.");
 });
 
+document.getElementById('projectButton').addEventListener('click', function() {
+    const projectName = prompt("Ingrese el nombre del proyecto:");
+    if (projectName) {
+        // Reemplaza "nombre-del-proyecto" en el código con el nombre ingresado por el usuario
+        const codeBlock = document.getElementById('codeBlock');
+        const codeBlock2 = document.getElementById('codeBlock2');
+        const codeBlock3 = document.getElementById('codeBlock3');
+        codeBlock.textContent = `
+composer global remove laravel/installer
+composer global require laravel/installer
+laravel new ${projectName}
+        `;
+        codeBlock2.textContent=`
+cd ${projectName}
+npm install vue
+npm install vue-loader
+npm install @vitejs/plugin-vue
+npm install vue-router@4
+        `;
+        codeBlock3.textContent=`
+mysql -u root -p
+CREATE DATABASE ${projectName}
+exit
+        `;
+    }
+});
 // const mensajes = [
 //     { pos: 700, mensaje: "Empezaremos con la creación del proyecto." },
 //     { pos: 1200, mensaje: "Se recomienda el uso de la herramienta laragon para evitar problemas." },
