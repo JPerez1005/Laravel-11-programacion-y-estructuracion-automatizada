@@ -7,3 +7,21 @@
 @import 'panel3.css';
 @import 'panel4.css';
 @import 'panel5.css';
+
+#loader {
+    display: flex; /* Para que se muestre al inicio */
+    justify-content: start;
+    align-items: center;
+    font-size: 24px;
+    background-color: #010101;
+    text-align: center;
+    padding-top: 20%;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    position: fixed; /* Para que cubra toda la pantalla */
+    top: 0;
+    left: 0;
+    z-index: 9999; /* Asegúrate de que esté encima de todo */
+    font-family: var('Merienda');
+}

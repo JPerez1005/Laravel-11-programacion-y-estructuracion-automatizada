@@ -78,62 +78,6 @@ export function animacionVideoRight() {
     );
 }
 
-// ======== Animaciones de Botones ========
-
-// Animación para el botón "instalaciones"
-export function animacionInstalaciones() {
-    gsap.fromTo('.instalaciones', 
-        { autoAlpha: 0, x: 200 },  
-        { 
-          autoAlpha: 1, 
-          x: 0,  
-          duration: 4,
-          scrollTrigger: {
-            trigger: '.estrellas1', 
-            start: 'top -300%', 
-            end: 'bottom -400%',
-            toggleActions: 'play reverse play reverse',
-          }
-        }
-    );
-}
-
-// Animación para el botón "estructuras"
-export function animacionEstructuras() {
-    gsap.fromTo('.estructuras', 
-        { autoAlpha: 0, x: -200 },  
-        { 
-          autoAlpha: 1, 
-          x: 0,  
-          duration: 4,
-          scrollTrigger: {
-            trigger: '.estrellas1', 
-            start: 'top -550%', 
-            end: 'bottom -800%',
-            toggleActions: 'play reverse play reverse',
-          }
-        }
-    );
-}
-
-// Animación para el botón "api"
-export function animacionApi() {
-    gsap.fromTo('.api', 
-        { autoAlpha: 0, y: 100 },  
-        { 
-          autoAlpha: 1, 
-          y: 0,  
-          duration: 4,
-          scrollTrigger: {
-            trigger: '.estrellas1', 
-            start: 'top -800%', 
-            end: 'bottom -1200%',
-            toggleActions: 'play reverse play reverse',
-          }
-        }
-    );
-}
-
 // ======== Animaciones de Efecto ========
 export function animacionDispersion() {
     gsap.fromTo('.dispersion', 

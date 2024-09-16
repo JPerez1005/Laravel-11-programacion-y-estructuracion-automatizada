@@ -8,9 +8,6 @@ import {
     animacionWindowLeft, 
     animacionVideoLeft, 
     animacionVideoRight, 
-    animacionInstalaciones, 
-    animacionEstructuras, 
-    animacionApi ,
     animacionDispersion
 } from './ScrollAnimaciones.js';
 import {
@@ -29,11 +26,6 @@ d.addEventListener('DOMContentLoaded', () => {
     animacionWindowLeft();
     animacionVideoLeft();
     animacionVideoRight();
-
-    // Ejecutar las animaciones de botones
-    animacionInstalaciones();
-    animacionEstructuras();
-    animacionApi();
 
     // Iniciar animaciones de Efecto
     animacionDispersion();

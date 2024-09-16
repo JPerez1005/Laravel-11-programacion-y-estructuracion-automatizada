@@ -24,7 +24,7 @@
             </div>
         </section>
         <section class="panel video-planeta">
-            <video src="assets/videos/tierra.mp4" autoplay loop muted>
+            <video src="assets/videos/e1.mp4" autoplay loop muted>
             </video>
             <div class="video_text">
                 <div class="video_left">
@@ -50,27 +50,32 @@
             <!-- <img src="assets/png/fog_1.png" data-speedx="0.13" data-speedy="0.02"  class="parallax fog_1"> -->
             
             <div class="container">
-                <h1 id="split">Instalaciones</h1>
-                <button class="instalaciones">Explorar</button>
+                <a href="">
+                    <h1 id="split">Instalaciones</h1>
+                </a>
             </div>
         
         </section>
         <section class="panel estrellas2">
             <!-- <img src="assets/png/fog_7.png" data-speedx="0.3" data-speedy="0.3" class="parallax fog_7"> -->
             <div class="container">
-                <h1 id="split2">Estructuras</h1>
-                <button class="estructuras" id="button2">Explorar</button>
+                <a href="">
+                    <h1 id="split2">Estructuras</h1>
+                </a>
             </div>
         </section>
         <section class="panel estrellas3">
             <img src="assets/png/fog_6.png" class="dispersion fog_6">
             <img src="assets/png/fog_1.png" data-speedx="0.13" data-speedy="0.12"  class="parallax fog_1">
             <div class="container">
-                <h1 id="split3">Api Rest</h1>
-                <button class="api">Explorar</button>
+                <a href="">
+                    <h1 id="split3">Api Rest</h1>
+                </a>
             </div>
         </section>
     </div>
+
+    <div id="loader">Cargando...</div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/split-type" defer></script>
@@ -80,5 +85,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" async></script>
     <script type="module" src="js/main.js" defer></script>
     <script type="module" src="js/index.js" defer></script>
+    <script>
+        // Mostrar un mensaje de carga mientras se cargan los recursos
+        document.getElementById('loader').style.display = 'block';
+        
+        // Evento 'load' para saber cuando todo está listo
+        window.addEventListener('load', function() {
+            console.log('Todos los recursos se han cargado');
+            // Ocultar el mensaje de carga
+            document.getElementById('loader').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
