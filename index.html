@@ -46,21 +46,17 @@
             </div>
         </section>
         <section class="panel estrellas1">
-            <!-- <img src="assets/png/fog_5.png" data-speedx="0.12" data-speedy="0.22"  class="parallax fog_5"> -->
-            <!-- <img src="assets/png/fog_1.png" data-speedx="0.13" data-speedy="0.02"  class="parallax fog_1"> -->
-            
             <div class="container">
-                <a href="">
+                <a href="/views/instalaciones.html">
                     <h1 id="split">Instalaciones</h1>
                 </a>
             </div>
         
         </section>
-        <section class="panel estrellas2">
-            <!-- <img src="assets/png/fog_7.png" data-speedx="0.3" data-speedy="0.3" class="parallax fog_7"> -->
+        <section class="panel estrellas2" id="apisection">
             <div class="container">
-                <a href="">
-                    <h1 id="split2">Estructuras</h1>
+                <a href="/views/api.html">
+                    <h1 id="split2">Api Rest</h1>
                 </a>
             </div>
         </section>
@@ -68,8 +64,8 @@
             <img src="assets/png/fog_6.png" class="dispersion fog_6">
             <img src="assets/png/fog_1.png" data-speedx="0.13" data-speedy="0.12"  class="parallax fog_1">
             <div class="container">
-                <a href="">
-                    <h1 id="split3">Api Rest</h1>
+                <a href="/views/estructuras.html">
+                    <h1 id="split3">Estructuras</h1>
                 </a>
             </div>
         </section>
@@ -85,16 +81,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" async></script>
     <script type="module" src="js/main.js" defer></script>
     <script type="module" src="js/index.js" defer></script>
-    <script>
-        // Mostrar un mensaje de carga mientras se cargan los recursos
-        document.getElementById('loader').style.display = 'block';
-        
-        // Evento 'load' para saber cuando todo está listo
-        window.addEventListener('load', function() {
-            console.log('Todos los recursos se han cargado');
-            // Ocultar el mensaje de carga
-            document.getElementById('loader').style.display = 'none';
-        });
-    </script>
 </body>
 </html>

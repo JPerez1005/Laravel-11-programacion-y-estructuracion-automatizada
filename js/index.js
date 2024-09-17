@@ -1,37 +1,40 @@
 import { hablar, preLoadVoices } from './speech.js';
 
+// Mostrar un mensaje de carga mientras se cargan los recursos
+document.getElementById('loader').style.display = 'block';
+        
+// Evento 'load' para saber cuando todo está listo
+window.addEventListener('load', function() {
+    document.getElementById('loader').style.display = 'none';
+});
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Precargar voces
     await preLoadVoices();
 
     // Sección de habla
-    hablar("Bienvenido a la sección de instalacciones.");
+    hablar("Bienvenido de nuevo Julián Peréz.");
 });
 
 const mensajes = [
-    { pos: 700, mensaje: "Empezaremos con la creación del proyecto." },
-    { pos: 1200, mensaje: "Se recomienda el uso de la herramienta laragon para evitar problemas." },
-    { pos: 1600, mensaje: "Ya podemos iniciar con la instalacion de vue3."},
-    { pos: 2000, mensaje: "vue3 es parecido a angular, ambas son marcos de referencia muy utilizados para el diseño frontal."},
-    { pos: 2400, mensaje: "Iniciemos con la configuración, por favor dirigase al archivo VITE.CONFIG.JS ."},
-    { pos: 2600, mensaje: "En el lado izquierdo solo tendremos que importar el codigo, mas sin embargo en el lado derecho hay que tener cuidado con las lineas de codigo ."},
-    { pos: 3200, mensaje: "Se recomienda el uso de la estructura del cual se le proporciona"},
-    { pos: 4000, mensaje: "La estructura es importante debido al seguimiento de creacion recomendado, por favor intente seguir con la estructura"},
-    { pos: 4400, mensaje: "Si así lo desea podremos iniciar con la instalacion de la libreria taildwind"},
-    { pos: 4700, mensaje: "Cabe aclarar que esta instalacion no es necesaria pero si la desea con mucho gusto lo guiamos"},
-    { pos: 5400, mensaje: "en el lado izquierdo solo hay que agregar el content, por favor esté atento a no dañar el codigo, la importacion del lado derecho es simple solo copiar y pegar, pero no se le olvide importarlo en el documento main.js"},
-    { pos: 6100, mensaje: "Muchas felicidades por haber terminado con la instalación ya puede continuar con las siguientes secciones"},
-    { pos: 6856.66650390625, mensaje: "Informacion y datos reservados, Julián David Peréz Bueno"},
+    { pos: 720, mensaje: "Espero se encuentre muy bien, por favor siga bajando." },
+    { pos: 2000, mensaje: "En la sección de Instalaciones nos encontramos con la mayoria de instalaciones, esto no quiere decir que no habrá instalaciones más adelante, por favor de click en la palabra de instalaciones para continuar con esta sección."},
+    { pos: 3600, mensaje: "En la sección Api Rest nos concentramos en la creación del backend, por favor preste mucha atención en esta sección, se recomienda no saltarse ningún paso aquí, dé click en la palabra Api Rest para continuar."},
+    { pos: 5300, mensaje: "La estructura es importante debido al seguimiento de creacion recomendado, por favor intente seguir con la estructura"},
+    { pos: 6000, mensaje: "Por favor dé click en la palabra Estructura, y muchas felicidades por llegar hasta aquí, espero le haya gustado mucho mi servicio, fué un gusto acompañarlo hasta aquí. Buena suerte en todos sus proyectos"},
   ];
+
+mensajes.forEach(mensaje => mensaje.activado = false);
 
 window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY || document.documentElement.scrollTop;
+    const rango = 50;
     console.log(scrollPos);
     
     mensajes.forEach(mensaje => {
-      if (scrollPos === mensaje.pos) {
+      if (!mensaje.activado && scrollPos >= mensaje.pos - rango && scrollPos <= mensaje.pos + rango) {
         hablar(mensaje.mensaje);
+        mensaje.activado = true; // Marcar mensaje como activado
       }
     });
   });

@@ -52,8 +52,8 @@ php artisan install:api
 				
 				<div class="frame__content text-left">
 					<h1>Crear tablas</h1>
-					<pre><code class="language-javascript">
-php artisan make:migration createNombreTable
+					<pre><code class="language-javascript" id="nombre_tabla">
+php artisan make:model Nombre --migration
 					</code></pre>
 				</div>
 				<div class="frame__content text-right">
@@ -112,63 +112,19 @@ $table->timestamps();
 			<div class="frame frame_bg">
 				
 				<div class="frame__content text-left">
-					<h2>Tabla Padre</h2>
-					<pre><code class="language-javascript">
-class Autor extends Model
-{
-	use HasFactory;
-	public $timestamps = false;
-	
-	protected $fillable=['nombre'];
-	
-	protected $table = 'autor';
-
-	function libros(){
-		return $this->hasMany(Libro::class);
-	}
-
-	public static function validationRules()
-    {
-        return [
-            'nombre'=>'required|min:5|max:500',
-        ];
-    }
-}
-					</code></pre>
+					<h2>Tipos de modelos</h2>
 					<br>
 					<p>
-						En este modelo se puede ver claramente la función de libros, que realmente se
-						refiere a la tabla hija llamada libros, en este caso mantienen una relacion de 
-						uno a muchos.
+						Existen dos tipos de modelos, el modelo padre y el modelo hijo, 
+						entender este proceso es muy sencillo, solo hay que entender las relaciones
+						de llamado relaciones entre entidades, aquí se resume este proceso sencillamente
+						con llamarlos tablas padre y tablas hijos, pero en algunos casos es más complejo
+						que eso, si es llegado el caso se le recomienda al usuario estudiarlo más a fondo
+						A continación la creación dinamica de modelos:
 					</p>
-				</div>
-				<div class="frame__content text-right">
-					<h2>Tabla Hijo</h2>
-					<pre><code class="language-javascript">
-class Libro extends Model
-{
-	use HasFactory;
-
-	protected $fillable=['titulo','stock','autor_id'];
-
-	public function autor(){
-		return $this->belongsTo(Autor::class,'autor_id');
-	}
-
-	public static function validationRules()
-    {
-        return [
-            'titulo'=>'required|min:5|max:500',
-			//aquí se pueden agregar mas condiciones
-        ];
-    }
-}
+					<pre><code class="language-javascript" id="modelo_tabla">
 					</code></pre>
 					<br>
-					<p>
-						En este modelo se puede ver claramente la función de autor, que realmente se
-						refiere a la tabla padre llamada autor.
-					</p>
 				</div>
 
 			</div>
@@ -200,7 +156,7 @@ class Libro extends Model
 						El controlador es el responsable de las acciones que puede llegar a tomar un modelo, para
 						después pasar los datos transformados a la migración o la tabla de la base de datos.
 					</p>
-					<h4>a continuación la estrcutura del multicontrolador</h4>
+					<h4>a continuación la estructura del multicontrolador</h4>
 				</div>
 			</div>
 
@@ -273,10 +229,11 @@ Route::prefix('{type}')->group(function () {
 			</div>
 
 			<div class="frame">
-				<div class="frame__content">©Julián Pérez Bueno</div>
+				<div class="frame__content">©Julián Pérez Bueno
+					<br>
+					<a href="../index.html">Inicio</a>
+				</div>
 			</div>
-
-			
 
 		</section>
 	</div>
