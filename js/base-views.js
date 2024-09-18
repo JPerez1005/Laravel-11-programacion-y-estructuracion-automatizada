@@ -125,11 +125,13 @@ const restrictionsList = [
 
 // Función para generar el modelo dinámico
 async function generateModel() {
-  let modelName = prompt("Ingrese el nombre del modelo:");
+  let modelName = prompt("Ingrese el nombre de la tabla\nse recomienda que sea en plural:");
   if (!modelName) {
-    alert("Debe ingresar un nombre de modelo.");
+    alert("Debe ingresar un nombre de tabla.");
     return;
   }
+
+  let campos=nombresCampos();
 
   // Función para preguntar por las restricciones
   let restrictions = [];
@@ -137,7 +139,14 @@ async function generateModel() {
 
   while (addMoreRestrictions) {
     let restrictionIndex = prompt(
-      `Seleccione una restricción para el modelo:\n1. ${restrictionsList[0]}\n2. ${restrictionsList[1]}\n3. ${restrictionsList[2]}\n4. ${restrictionsList[3]}\n5. ${restrictionsList[4]}\n6. ${restrictionsList[5]}\nIngrese el número de la opción que desea:`
+      `Seleccione una restricción para el modelo:
+      \n1. ${restrictionsList[0]}
+      \n2. ${restrictionsList[1]}
+      \n3. ${restrictionsList[2]}
+      \n4. ${restrictionsList[3]}
+      \n5. ${restrictionsList[4]}
+      \n6. ${restrictionsList[5]}
+      \nIngrese el número de la opción que desea:`
     );
     
     if (restrictionIndex >= 1 && restrictionIndex <= 6) {
@@ -164,7 +173,7 @@ async function generateModel() {
     tableName=prompt("Ingrese el nombre de la tabla padre de este modelo:").toLocaleLowerCase();
     relationships += `
     public function ${tableName}() {
-      return $this->belongsTo(${capitalizeFirstLetter(tableName)}::class, ' ${tableName}_id');
+      return $this->belongsTo(${capitalizeFirstLetter(tableName)}::class, '${tableName}_id');
     }\n`;
   }
 
@@ -172,7 +181,7 @@ async function generateModel() {
   let modelCode = `
   public $timestamps = true;
 
-  protected $fillable = ['campo1', 'campo2']; // Ajustar según el usuario
+  protected $fillable = ['${campos.join("','")}'];
 
   protected $table = '${modelName.toLowerCase()}';
 
@@ -192,14 +201,27 @@ async function generateModel() {
 
 // Lista de tipos de campos posibles para la tabla (sin la clave foránea)
 const fieldTypesList = [
-  "$table->id();",
   "$table->string('nombre', 20);",
   "$table->integer('stock');",
   "$table->enum('rol', ['admin', 'regular'])->default('regular');",
   "$table->date('fecha');",
-  "$table->boolean('estado')->default(false);",
-  "$table->timestamps();"
+  "$table->boolean('estado')->default(false);"
 ];
+
+function nombresCampos() {
+  let masCampos=true;
+  let campos=[];
+  while(masCampos){
+    let userChoice = confirm("¿Quieres agregar campos al modelo?");
+    if (userChoice) {
+      let campo=prompt("Digite el nombre del campo que desea agregar: ");
+      campos.push(campo);
+    } else {
+      masCampos=false;
+      return campos;
+    }
+  }
+}
 
 // Función para generar tipos de campos de forma dinámica
 async function generateTypesOfFields() {
@@ -208,7 +230,14 @@ async function generateTypesOfFields() {
 
   while (addMoreFields) {
     let fieldIndex = prompt(
-      `Seleccione un tipo de campo para la tabla:\n1. ID\n2. String (nombre)\n3. Integer (stock)\n4. Enum (rol)\n5. Date (fecha)\n6. Boolean (estado)\n7. Foreign ID (foranea_id)\n8. Timestamps\nIngrese el número de la opción que desea:`
+      `Seleccione un tipo de campo para la tabla:
+      \n1. String (nombre)
+      \n2. Integer (stock)
+      \n3. Enum (rol)
+      \n4. Date (fecha)
+      \n5. Boolean (estado)
+      \n6. Foreign ID (foranea_id)
+      \nIngrese el número de la opción que desea:`
     );
     
     if (fieldIndex >= 1 && fieldIndex <= 7) {

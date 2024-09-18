@@ -151,6 +151,7 @@ import '../../css/vue.css';
 import { createPinia } from 'pinia';
 
 const app=createApp(App);
+const pinia = createPinia();
 app.use(router).use(pinia);
 
 app.config.globalProperties.$axios = axios;
@@ -197,12 +198,12 @@ app.mount("#app");
 				<div class="frame__content text-left">
                     <h4>Modelo de lista</h4>
                     <br>
-                    <a href="../docs/useListModel.js">Descargar</a>
+                    <a href="../docs/useListModel.js" download="useListModel">Descargar</a>
 				</div>
 				<div class="frame__content text-right">
                     <h4>Modelo de formulario</h4>
                     <br>
-                    <a href="../docs/useFormModel.js">Descargar</a>
+                    <a href="../docs/useFormModel.js" download="useFormModel">Descargar</a>
 				</div>
 			</div>
 
