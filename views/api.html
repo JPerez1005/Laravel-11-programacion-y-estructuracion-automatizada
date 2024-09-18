@@ -50,13 +50,24 @@ php artisan install:api
 
 			<div class="frame frame_bg">
 				
-				<div class="frame__content text-left">
+				<div style="right: 14vw;" class="frame__content text-left">
 					<h1>Crear tablas</h1>
 					<pre><code class="language-javascript" id="nombre_tabla">
 php artisan make:model Nombre --migration
 					</code></pre>
 				</div>
-				<div class="frame__content text-right">
+				<div style="left: 14vw;" class="frame__content text-right">
+					<h3>Campos de Migraciones</h3>
+					<br>
+					<p>A continuación podrá crear las lineas de codigo necesarias para su tabla de migración</p>
+					<pre><code class="language-javascript" id="campos_migracion">
+					</code></pre>
+					
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
 					<h1>Realizamos migraciones</h1>
 					<pre><code class="language-javascript">
 php artisan migrate
@@ -75,26 +86,6 @@ php artisan migrate:rollback
 					<p>
 						Aquí se realizan los cambios en las migraciones
 					</p>
-				</div>
-			</div>
-
-			<div class="frame frame_bg">
-				
-				<div class="frame__content">
-					<h3>Tipos de campos</h3>
-					<br>
-					<pre><code class="language-javascript">
-$table->id();
-$table->string('nombre',20);
-$table->integer('stock');
-$table->enum('rol',['admin','regular'])->default('regular');
-$table->date('fecha');
-$table->boolean('estado')->default(false);
-// Para las tablas foraneas
-$table->foreignId('autor_id')->constrained('autor')->onDelete('cascade');
-// Es util para fechas de cambios en la db
-$table->timestamps();
-					</code></pre>
 				</div>
 			</div>
 

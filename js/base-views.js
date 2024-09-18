@@ -83,6 +83,11 @@ async function copyCode(block, button) {
     }
   }
 
+  if (code.id === "campos_migracion") {
+    await generateTypesOfFields();
+    return;
+  }
+
   // Si el bloque de código tiene un id llamado "modelo_tabla"
   if (code.id === "modelo_tabla") {
     await generateModel(); // Llamamos a la función para generar el modelo
@@ -165,15 +170,6 @@ async function generateModel() {
 
   // Construir el modelo dinámico con las opciones elegidas
   let modelCode = `
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class ${capitalizeFirstLetter(modelName)} extends Model {
-  use HasFactory;
   public $timestamps = true;
 
   protected $fillable = ['campo1', 'campo2']; // Ajustar según el usuario
@@ -186,11 +182,53 @@ class ${capitalizeFirstLetter(modelName)} extends Model {
     return [
       ${restrictions.join(",\n      ")}
     ];
-  }
-}`;
+  }`;
 
   // Mostrar el modelo generado al usuario
   console.log(modelCode);
   await navigator.clipboard.writeText(modelCode); // Copia el código al portapapeles
   alert("Modelo generado y copiado al portapapeles.");
+}
+
+// Lista de tipos de campos posibles para la tabla (sin la clave foránea)
+const fieldTypesList = [
+  "$table->id();",
+  "$table->string('nombre', 20);",
+  "$table->integer('stock');",
+  "$table->enum('rol', ['admin', 'regular'])->default('regular');",
+  "$table->date('fecha');",
+  "$table->boolean('estado')->default(false);",
+  "$table->timestamps();"
+];
+
+// Función para generar tipos de campos de forma dinámica
+async function generateTypesOfFields() {
+  let fields = [];
+  let addMoreFields = true;
+
+  while (addMoreFields) {
+    let fieldIndex = prompt(
+      `Seleccione un tipo de campo para la tabla:\n1. ID\n2. String (nombre)\n3. Integer (stock)\n4. Enum (rol)\n5. Date (fecha)\n6. Boolean (estado)\n7. Foreign ID (foranea_id)\n8. Timestamps\nIngrese el número de la opción que desea:`
+    );
+    
+    if (fieldIndex >= 1 && fieldIndex <= 7) {
+      if (fieldIndex == 7) {
+        // Preguntar por el nombre de la tabla foránea
+        let foreignTableName = prompt("Ingrese el nombre de la tabla foránea:");
+        fields.push(`$table->foreignId('${foreignTableName}_id')->constrained('${foreignTableName}')->onDelete('cascade');`);
+      } else {
+        fields.push(fieldTypesList[fieldIndex - 1]);
+      }
+    } else {
+      alert("Opción no válida. Intente nuevamente.");
+    }
+
+    addMoreFields = confirm("¿Desea agregar otro campo?");
+  }
+
+  // Mostrar los campos generados
+  let generatedFields = fields.join("\n");
+  console.log(generatedFields);
+  await navigator.clipboard.writeText(generatedFields); // Copiar al portapapeles
+  alert("Campos generados y copiados al portapapeles.");
 }
