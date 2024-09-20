@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reconocimiento de Voz y Scroll</title>
+    <style>
+        section {
+            height: 100vh; /* Cada sección ocupará toda la altura de la ventana */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="inicio">Inicio</section>
+    <section id="servicios">Servicios</section>
+    <section id="contacto">Contacto</section>
+    <section id="sobremi">Sobre Mí</section>
+    <section id="naruto">Naruto</section>
+
+    <script>
+        // Lista de posibles palabras clave para cada sección
+        const sections = {
+            inicio: ['inicio', 'comienzo', 'principal'],
+            servicios: ['servicio', 'servicios'],
+            contacto: ['contacto', 'contactos'],
+            sobremi: ['sobre mí', 'sobre mi'],
+            naruto: ['naruto']
+        };
+
+        // Función para calcular la distancia de Levenshtein entre dos cadenas
+        function levenshtein(a, b) {
+            const matrix = [];
+
+            // Inicializar la primera fila y columna de la matriz
+            for (let i = 0; i <= b.length; i++) {
+                matrix[i] = [i];
+            }
+            for (let j = 0; j <= a.length; j++) {
+                matrix[0][j] = j;
+            }
+
+            // Llenar la matriz con los valores correspondientes
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1, // sustitución
+                            matrix[i][j - 1] + 1,     // inserción
+                            matrix[i - 1][j] + 1      // eliminación
+                        );
+                    }
+                }
+            }
+
+            return matrix[b.length][a.length];
+        }
+
+        // Función para encontrar la sección más parecida a lo que el usuario dijo
+        function findClosestSectionId(transcript) {
+            console.log('Buscando la sección más cercana a:', transcript);
+            transcript = transcript.toLowerCase();
+            let bestMatch = null;
+            let lowestDistance = Infinity;
+
+            for (let id in sections) {
+                for (let keyword of sections[id]) {
+                    const distance = levenshtein(transcript, keyword.toLowerCase());
+                    if (distance < lowestDistance) {
+                        lowestDistance = distance;
+                        bestMatch = id;
+                    }
+                }
+            }
+
+            console.log('Mejor coincidencia:', bestMatch, 'con una distancia de:', lowestDistance);
+            return bestMatch;
+        }
+
+        // Verifica si el navegador soporta la API de reconocimiento de voz
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+
+            // Configurar el reconocimiento de voz
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            recognition.lang = 'es-ES'; // Cambia el idioma si es necesario
+
+            // Evento que se activa cuando hay resultados de voz
+            recognition.onresult = function(event) {
+                const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+                console.log('El usuario dijo:', transcript);
+
+                // Intentar encontrar la sección más cercana a lo que dijo el usuario
+                const sectionId = findClosestSectionId(transcript);
+
+                if (sectionId) {
+                    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    console.log('No se encontró una coincidencia para:', transcript);
+                }
+            };
+
+            // Iniciar el reconocimiento
+            recognition.start();
+
+            // Reiniciar si se detiene
+            recognition.onend = function() {
+                recognition.start(); // Reanudar si el reconocimiento se detiene
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Error en el reconocimiento de voz:', event.error);
+            };
+
+        } else {
+            console.log('El reconocimiento de voz no es soportado en este navegador.');
+        }
+    </script>
+
+</body>
+</html>

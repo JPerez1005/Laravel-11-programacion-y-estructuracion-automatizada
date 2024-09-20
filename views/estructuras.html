@@ -28,8 +28,8 @@
 				</div>
 			</div>
 
-			<div class="frame frame_bg">
-				<div class="frame__content">
+			<div class="frame">
+				<div class="frame__content text-left">
 					<h3>Configuración de Rutas</h3>
                     <p>Colocar el siguiente codigo en el archivo web.php</p>
 					<pre><code>
@@ -38,17 +38,15 @@ Route::get('/vue', function () {
 });
 					</code></pre>
 				</div>
+				<div class="frame__content">
+					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t6.jpg);"></div>
+				</div>
 			</div>
 
             <div class="frame frame_bg">
-				<div class="frame__content text-left">
-					<h1>Crear Archivo principal</h1>
-					<pre><code class="language-javascript">
-touch resources/views/vue.blade.php
-					</code></pre>
-				</div>
-				<div class="frame__content text-right">
-					<p>Dentro del archivo principal colocar: </p>
+				<div class="frame__content">
+					<h1>Contenido vue.blade.php</h1>
+					<p>Dentro del archivo vue.blade.php principal colocar: </p>
                     <pre><code class="language-html">
 &lt;body&gt;
     &lt;div id="app"&gt;&lt;/div&gt;
@@ -57,47 +55,16 @@ touch resources/views/vue.blade.php
 &lt;/body&gt;
                     </code></pre>
 				</div>
-			</div>
-
-			<div class="frame frame_bg">
-				<div class="frame__content">
-					<h3>Instalar vue router</h3>
-					<pre><code>
-npm install vue-router@next
-                    </code></pre>
-				</div>
+				
 			</div>
 
 			<div class="frame frame_bg">
 				
 				<div class="frame__content">
 					<h3>Configuración router</h3>
-                    <p>en el archivo router.js colocamos lo siguiente</p>
+                    <p>en el archivo resources/js/vue/router.js colocamos lo siguiente</p>
 					<br>
-					<pre><code class="language-javascript">
-import { createRouter,createWebHashHistory } from "vue-router";
-import Libros from './components/LibroComponent.vue';
-
-const routes = [
-    {
-        name: 'home',
-        path: '/',
-        redirect: '/vue'  // Redirigir la raíz a la ruta '/vue'
-    },
-    {
-        name: 'libros',
-        path: '/libro',
-        component: Libros
-    },
-];
-
-const router=createRouter({
-    history: createWebHashHistory(),
-    routes:routes
-});
-
-export default router;
-					</code></pre>
+					<a href="../docs/router.js" download="router.js">Descargar Router.js</a>
 				</div>
 			</div>
 
@@ -123,25 +90,10 @@ export default router;
 				</div>
 			</div>
 
-			<div class="frame frame_bg">
+			<div class="frame">
 				<div class="frame__content text-left">
-					<h2>Pinia normal</h2>
-					<pre><code class="language-javascript">
-npm install pinia
-					</code></pre>
-				</div>
-				<div class="frame__content text-right">
-					<h2>Pinia con persistencia</h2>
-					<pre><code class="language-javascript">
-npm install pinia-plugin-persistedstate
-					</code></pre>
-				</div>
-            </div>
-
-			<div class="frame frame_bg">
-				<div class="frame__content">
 					<h2>Configuración Principal</h2>
-                    <h4>dentro del archivo main.js</h4>
+                    <h4>dentro del archivo resources/js/main.js</h4>
 					<pre><code class="language-javascript">
 import { createApp } from "vue";
 import App  from './App.vue';
@@ -160,6 +112,9 @@ window.axios=axios;
 app.mount("#app");
 					</code></pre>
 				</div>
+				<div class="frame__content">
+					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t7.jpg);"></div>
+				</div>
 			</div>
 
 			<div class="frame frame_bg">
@@ -175,8 +130,8 @@ app.mount("#app");
 
 			<div class="frame"></div>
 
-			<div class="frame frame_bg">
-				<div class="frame__content">
+			<div class="frame">
+				<div class="frame__content text-right">
 					<h3>Cambio de ruta</h3>
                     <p>En la linea 10 del archivo que acaba de descargar cambie la ruta a la
                         ruta propia de su proyecto, por lo general solo es cambiar el nombre al
@@ -184,11 +139,17 @@ app.mount("#app");
 				</div>
 			</div>
 
-			<div class="frame frame_bg">
+			<div class="frame">
 				<div class="frame__content">
+					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t8.jpg);"></div>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content text-right">
 					<h3>Uso de modelos</h3>
 					<br>
-					<p>A continuacin las funciones basicas que cumple un proyecto tanto como
+					<p>A continuación las funciones basicas que cumple un proyecto tanto como
                         eliminar, actualizar y registrar.</p>
                     <h4>js/vue/jsComponents</h4>
 				</div>
@@ -219,111 +180,50 @@ app.mount("#app");
 				</div>
 			</div>
 
-            <div class="frame frame_bg">
+			<div class="frame">
 				<div class="frame__content">
+					<div class="frame-media" style="width: 1200px;background-image: url(../assets/img/t11.jpg);"></div>
+				</div>
+			</div>
+
+			<div class="frame"></div>
+
+            <div class="frame">
+				<div class="frame__content text-right">
 					<h3>Como Enlistar</h3>
+					<h1>resources/js/vue/components/listas.vue</h1>
 					<br>
 					<p>
                         Considerando que enlistar datos es muy fundamental, para saber
                         si los datos se sincronizan perfectamente con el backend    
                     </p>
+					<br>
+					<a href="../docs/listas.vue" download="listas.vue">Descargar la lista</a>
 				</div>
 			</div>
 
 			<div class="frame frame_bg">
-				<div class="frame__content text-left">
-					<h3>Estructura html</h3>
-                    <pre><code>
-&lt;tr v-for=&quot;item in data&quot; :key=&quot;item.id&quot;&gt;
-    &lt;td&gt;{{ item.titulo }}&lt;/td&gt;
-    &lt;td&gt;{{ item.stock }}&lt;/td&gt;
-&lt;/tr&gt;
-                    </code></pre>
-				</div>
-                <div class="frame__content text-right">
-					<h3>Estructura Javascript</h3>
-                    <pre><code>
-import { useListModel } from '../jsComponents/main.js';
-
-export default {
-  setup() {
-    const { data,
-        isLoading,
-        pagination,
-        fetchPagina,
-        eliminar,
-        search,
-        buscar } = useListModel('tabla_dos');
-    return {
-      data,
-      isLoading,
-      pagination,
-      fetchPagina,
-      eliminar,
-      search,
-      buscar,
-    };
-  },
-};
-                    </code></pre>
+				<div class="frame__content">
+					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t9.jpg);"></div>
 				</div>
 			</div>
 
             <div class="frame frame_bg">
-				<div class="frame__content">
+				<div class="frame__content text-right">
 					<h3>Como Registrar</h3>
+					<h1>resources/js/vue/components/registro.vue</h1>
 					<br>
 					<p>
                         Si se siguieron todos los pasos correctamente el registro no debería dar ningún
                         problema, pero por si acaso hubo algún problema por favor revisar todos los pasos
                         de nuevo para después poder informar al desarrollador.  
                     </p>
+					<br>
+					<a href="../docs/registros.vue" download="registros.vue">Descargar el Registro</a>
 				</div>
 			</div>
 
             <div class="frame"></div>
-
-			<div class="frame frame_bg">
-				<div class="frame__content text-left">
-					<h3>Estructura html</h3>
-                    <pre><code class="language-html">
-&lt;form @submit.prevent=&quot;enviar&quot;&gt;
-    &lt;div&gt;
-        &lt;label for=&quot;titulo&quot;&gt;Título:&lt;/label&gt;
-        &lt;input type=&quot;text&quot; id=&quot;titulo&quot; v-model=&quot;form.titulo&quot; required /&gt;
-    &lt;/div&gt;
-    &lt;div&gt;
-        &lt;label for=&quot;stock&quot;&gt;Stock:&lt;/label&gt;
-        &lt;input type=&quot;number&quot; id=&quot;stock&quot; v-model=&quot;form.stock&quot; required /&gt;
-    &lt;/div&gt;
-    &lt;button type=&quot;submit&quot;&gt;{{ editMode ? 'Actualizar' : 'Registrar' }}&lt;/button&gt;
-    &lt;button type=&quot;button&quot; @click=&quot;cancelar&quot;&gt;Cancelar&lt;/button&gt;
-&lt;/form&gt;
-                    </code></pre>
-				</div>
-                <div class="frame__content text-right">
-					<h3>Estructura Javascript</h3>
-                    <pre><code>
-import { useFormModel } from '../jsComponents/main.js';
-
-export default {
-    setup() {
-    const { form, enviar, cancelar, editMode } = useFormModel('tabla_dos', {
-        titulo: '',
-        stock: 0,
-    });
-
-    return {
-        form,
-        enviar,
-        cancelar,
-        editMode,
-    };
-    },
-};
-                    </code></pre>
-				</div>
-			</div>
 
 			<div class="frame">
 				<div class="frame__content">

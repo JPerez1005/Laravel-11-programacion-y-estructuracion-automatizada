@@ -110,6 +110,15 @@ vue(),
 
 			</div>
 
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Instalar la api</h3>
+					<pre><code>
+php artisan install:api
+					</code></pre>
+				</div>
+			</div>
+
 			<div class="frame">
 				<div class="frame__content text-left">
 					<h1>Seguir la siguiente estructura</h1>
@@ -153,19 +162,51 @@ echo. > js\vue\App.vue
 echo. > js\vue\main.js
 echo. > js\vue\router.js
 mkdir js\vue\components
+echo. > js\vue\components\listas.vue
+echo. > js\vue\components\registros.vue
+mkdir js\vue\jsComponents
 cd ..
+echo. > resources\views\vue.blade.php
 						</code>
 					</pre>
 				</div>
 				<div class="frame__content text-right">
 					<h2>Comandos para la BD</h2>
-					<pre><code id="codeBlock3">
+					<pre><code>
 mysql -u root -p
+					</code></pre>
+					<pre><code id="codeBlock3">
 CREATE DATABASE nombre_de_la_base_de_datos;
+					</code></pre>
+					<pre><code>
 exit
 					</code></pre>
 				</div>
 			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content">
+					<h3>Instalar vue router</h3>
+					<pre><code>
+npm install vue-router@next
+                    </code></pre>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content text-left">
+					<h2>Pinia normal</h2>
+					<pre><code class="language-javascript">
+npm install pinia
+					</code></pre>
+				</div>
+				<div class="frame__content text-right">
+					<h2>Pinia con persistencia</h2>
+					<pre><code class="language-javascript">
+npm install pinia-plugin-persistedstate
+					</code></pre>
+				</div>
+            </div>
 
 			<div class="frame frame_bg">
 				<div class="frame__content">
