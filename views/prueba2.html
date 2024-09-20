@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación WebAuthn</title>
+</head>
+<body>
+    <h1>Autenticación con WebAuthn</h1>
+    <button id="registerButton">Registrar</button>
+    <button id="authButton">Iniciar Autenticación</button>
+
+    <script>
+        // Función para registrar una nueva credencial
+        async function register() {
+            const publicKey = {
+                challenge: new Uint8Array(32), // Desafío generado por el servidor
+                rp: { name: "Ejemplo de RP" }, // Nombre del proveedor
+                user: {
+                    id: new Uint8Array(16), // ID del usuario (debe ser único)
+                    name: "usuario@ejemplo.com", // Nombre del usuario
+                    displayName: "Usuario Ejemplo"
+                },
+                pubKeyCredParams: [{ type: "public-key", alg: -7 }], // Algoritmo
+                timeout: 60000, // Tiempo de espera
+                excludeCredentials: [], // Excluir credenciales existentes si es necesario
+                authenticatorSelection: {
+                    authenticatorAttachment: "platform", // Autenticador de la plataforma
+                    userVerification: "preferred"
+                }
+            };
+
+            try {
+                const credential = await navigator.credentials.create({ publicKey });
+                console.log("Registro exitoso", credential);
+
+                // Guarda el ID de la credencial en localStorage
+                localStorage.setItem('credentialId', credential.id);
+
+                // Envía datos al servidor para registrar la credencial
+                // sendCredentialToServer(credential); // Descomentar para enviar al servidor
+            } catch (error) {
+                console.error("Error en el registro:", error);
+            }
+        }
+
+        // Función para autenticar usando una credencial existente
+        async function authenticate() {
+            const credentialId = localStorage.getItem('credentialId');
+            if (!credentialId) {
+                console.log("No se encontró una credencial registrada. Por favor, regístrate primero.");
+                return;
+            }
+
+            const publicKeyCredentialRequestOptions = {
+                challenge: new Uint8Array(32), // Desafío generado por el servidor
+                timeout: 60000, // Tiempo de espera
+                rpId: "localhost", // Nombre del dominio
+                allowCredentials: [{
+                    id: Uint8Array.from(atob(credentialId), c => c.charCodeAt(0)),
+                    type: "public-key"
+                }],
+                userVerification: "preferred"
+            };
+
+            try {
+                const assertion = await navigator.credentials.get({ publicKey: publicKeyCredentialRequestOptions });
+                console.log("Autenticación exitosa", assertion);
+
+                // Aquí puedes enviar el `assertion` al servidor para verificar
+                // sendAssertionToServer(assertion); // Descomentar para enviar al servidor
+            } catch (error) {
+                console.error("Error en la autenticación:", error);
+            }
+        }
+
+        // Eventos para los botones
+        document.getElementById('registerButton').addEventListener('click', register);
+        document.getElementById('authButton').addEventListener('click', authenticate);
+    </script>
+</body>
+</html>
