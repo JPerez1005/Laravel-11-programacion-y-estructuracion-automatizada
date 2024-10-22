@@ -2,6 +2,6 @@
     z-index: 3;
     will-change: transform;
     animation: zoomInOut 10s infinite alternate;
-    background-image: url(../assets/img/estrellas6.jpg);
+    background-image: url(../assets/img/estrellas6.webp);
     overflow: hidden;
 }

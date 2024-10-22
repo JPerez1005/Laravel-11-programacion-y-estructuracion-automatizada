@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Asistencia con Huella Dactilar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Asistencia con Huella Dactilar</h1>
+        <button onclick="register()">Registrar Huella</button>
+        <button onclick="authenticate()">Autenticar</button>
+        
+        <h2>Estudiantes Registrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>ID</th>
+                    <th>Fecha de Registro</th>
+                    <th>Hora de Registro</th>
+                </tr>
+            </thead>
+            <tbody id="students-list">
+                <!-- Lista de estudiantes registrados -->
+            </tbody>
+        </table>
+
+        <h2>Registro de Asistencia</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-list">
+                <!-- Registro de asistencia -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="fingersprint.js"></script>
+</body>
+</html>

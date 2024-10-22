@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro y Autenticación con Huella Dactilar</title>
+</head>
+<body>
+    <h1>Registro de Estudiantes</h1>
+    <button id="registerButton">Registrar Estudiante</button>
+    <h1>Autenticación de Estudiantes</h1>
+    <button id="authButton">Iniciar Autenticación</button>
+    <h1>Registro de Asistencia</h1>
+    <table id="attendanceTable" style="width:80%; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>ID Estudiante</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        // Función para registrar un nuevo estudiante
+        async function registerStudent() {
+            const nombre = prompt("Ingrese el nombre del estudiante:");
+
+            if (!nombre) {
+                alert("Debe ingresar un nombre.");
+                return;
+            }
+
+            const publicKey = {
+                challenge: new Uint8Array(32), // Desafío generado por el servidor
+                rp: { name: "Institución Educativa" },
+                user: {
+                    id: new Uint8Array(16), // ID único del usuario
+                    name: `${nombre}@ejemplo.com`,
+                    displayName: nombre
+                },
+                pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+                timeout: 60000,
+                authenticatorSelection: {
+                    authenticatorAttachment: "platform",
+                    userVerification: "preferred"
+                }
+            };
+
+            try {
+                const credential = await navigator.credentials.create({ publicKey });
+                console.log("Registro exitoso", credential);
+                alert("Estudiante registrado exitosamente.");
+
+                const now = new Date();
+                const fecha = now.toLocaleDateString();
+                const hora = now.toLocaleTimeString();
+
+                let estudiantes = JSON.parse(localStorage.getItem('estudiantes')) || [];
+
+                // Generar un ID único para el estudiante
+                const idEstudiante = estudiantes.length + 1;
+
+                estudiantes.push({
+                    idEstudiante,
+                    nombre,
+                    rawId: Array.from(new Uint8Array(credential.rawId)), // Guardar el rawId
+                    fechaRegistro: fecha,
+                    horaRegistro: hora
+                });
+
+                localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+            } catch (error) {
+                console.error("Error en el registro:", error);
+            }
+        }
+
+        // Función para autenticar a un estudiante
+        async function authenticateStudent() {
+            const estudiantes = JSON.parse(localStorage.getItem('estudiantes'));
+            if (!estudiantes || estudiantes.length === 0) {
+                console.log("No hay estudiantes registrados.");
+                return;
+            }
+
+            const publicKeyCredentialRequestOptions = {
+                challenge: new Uint8Array(32), // Desafío generado por el servidor
+                timeout: 60000,
+                userVerification: "required"
+            };
+
+            try {
+                const assertion = await navigator.credentials.get({ publicKey: publicKeyCredentialRequestOptions });
+                console.log("Autenticación exitosa", assertion);
+
+                // Obtener el rawId de la autenticación actual
+                const currentRawId = Array.from(new Uint8Array(assertion.rawId));
+
+                // Buscar al estudiante que tenga el mismo rawId
+                const estudiante = estudiantes.find(est => 
+                    JSON.stringify(est.rawId) === JSON.stringify(currentRawId)
+                );
+
+                if (estudiante) {
+                    const now = new Date();
+                    const fecha = now.toLocaleDateString();
+                    const hora = now.toLocaleTimeString();
+
+                    console.log(`Autenticación exitosa para ${estudiante.nombre}`);
+                    alert(`Asistencia registrada para ${estudiante.nombre} el ${fecha} a las ${hora}.`);
+
+                    // Registrar la asistencia
+                    registrarAsistencia(estudiante.idEstudiante, estudiante.nombre);
+                } else {
+                    alert("Estudiante no encontrado. Por favor, registre la huella dactilar primero.");
+                }
+            } catch (error) {
+                console.error("Error en la autenticación:", error);
+            }
+        }
+
+        // Función para registrar la asistencia
+        function registrarAsistencia(idEstudiante, nombre) {
+            const now = new Date();
+            const fecha = now.toLocaleDateString();
+            const hora = now.toLocaleTimeString();
+
+            let registroAsistencia = JSON.parse(localStorage.getItem('registroAsistencia')) || [];
+            registroAsistencia.push({ idEstudiante, nombre, fecha, hora });
+            localStorage.setItem('registroAsistencia', JSON.stringify(registroAsistencia));
+
+            // Actualizar la tabla de asistencia
+            actualizarTablaAsistencia();
+        }
+
+        // Función para actualizar la tabla de asistencia
+        function actualizarTablaAsistencia() {
+            const registroAsistencia = JSON.parse(localStorage.getItem('registroAsistencia')) || [];
+            const tbody = document.getElementById('attendanceTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+
+            registroAsistencia.forEach(registro => {
+                const row = tbody.insertRow();
+                row.insertCell(0).innerText = registro.idEstudiante;
+                row.insertCell(1).innerText = registro.nombre;
+                row.insertCell(2).innerText = registro.fecha;
+                row.insertCell(3).innerText = registro.hora;
+            });
+        }
+
+        document.getElementById('registerButton').addEventListener('click', registerStudent);
+        document.getElementById('authButton').addEventListener('click', authenticateStudent);
+
+        // Actualizar la tabla de asistencia al cargar la página
+        actualizarTablaAsistencia();
+    </script>
+</body>
+</html>

@@ -39,7 +39,7 @@ Route::get('/vue', function () {
 					</code></pre>
 				</div>
 				<div class="frame__content">
-					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t6.jpg);"></div>
+					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t6.webp);"></div>
 				</div>
 			</div>
 
@@ -75,7 +75,8 @@ Route::get('/vue', function () {
 				<div class="frame__content text-right ">
 					<pre><code class="language-html">
 &lt;template&gt;
-    &lt;router-link :to=&quot;{name:'presentacion'}&quot; class=&quot;inicio&quot;&gt;Inicio&lt;/router-link&gt;
+	&lt;router-link :to=&quot;{name:'listas'}&quot; class=&quot;inicio&quot;&gt;Listas&lt;/router-link&gt;
+	&lt;router-link :to=&quot;{name:'registrar'}&quot; class=&quot;inicio&quot;&gt;Listas&lt;/router-link&gt;
     &lt;router-view&gt;&lt;/router-view&gt;
 &lt;/template&gt;
 
@@ -113,7 +114,7 @@ app.mount("#app");
 					</code></pre>
 				</div>
 				<div class="frame__content">
-					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t7.jpg);"></div>
+					<div class="frame-media frame-media_right" style="background-image: url(../assets/img/t7.webp);"></div>
 				</div>
 			</div>
 
@@ -141,7 +142,7 @@ app.mount("#app");
 
 			<div class="frame">
 				<div class="frame__content">
-					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t8.jpg);"></div>
+					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t8.webp);"></div>
 				</div>
 			</div>
 
@@ -182,7 +183,7 @@ app.mount("#app");
 
 			<div class="frame">
 				<div class="frame__content">
-					<div class="frame-media" style="width: 1200px;background-image: url(../assets/img/t11.jpg);"></div>
+					<div class="frame-media" style="width: 1200px;background-image: url(../assets/img/t11.webp);"></div>
 				</div>
 			</div>
 
@@ -204,7 +205,7 @@ app.mount("#app");
 
 			<div class="frame frame_bg">
 				<div class="frame__content">
-					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t9.jpg);"></div>
+					<div class="frame-media frame-media_left" style="background-image: url(../assets/img/t9.webp);"></div>
 				</div>
 			</div>
 
@@ -220,6 +221,23 @@ app.mount("#app");
                     </p>
 					<br>
 					<a href="../docs/registros.vue" download="registros.vue">Descargar el Registro</a>
+				</div>
+			</div>
+
+			<div class="frame frame_bg">
+				<div class="frame__content text-right">
+					<h1>Iniciar el laravel</h1>
+					<p>Se recomienda agregar los modelos en la carpeta de config</p>
+					<pre><code class="language-html">
+php artisan serve
+					</code></pre>
+				</div>
+				<div class="frame__content text-left">
+					<h1>Iniciar el Vue.js</h1>
+					<p>Se recomienda configurar los nombres de las tablas en listas.vue y registros.vue</p>
+					<pre><code class="language-html">
+npm run dev
+					</code></pre>
 				</div>
 			</div>
 
